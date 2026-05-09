@@ -70,30 +70,30 @@ export default function Gallery() {
 
       {/* Dialog for details */}
       <Dialog open={!!selectedCard} onOpenChange={(open) => !open && setSelectedCard(null)}>
-        <DialogContent className="max-w-3xl bg-card/90 backdrop-blur-xl border-border text-card-foreground">
+        <DialogContent className="max-w-[95vw] sm:max-w-[80vw] md:max-w-3xl lg:max-w-4xl bg-card/90 backdrop-blur-xl border-border text-card-foreground max-h-[90vh] overflow-y-auto">
           {selectedCard && (
-            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start p-2">
-              <div className="w-48 md:w-64 shrink-0 rounded-xl overflow-hidden border-2 border-tarot-gold/30 shadow-2xl">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start p-2 md:p-4">
+              <div className="w-48 sm:w-56 md:w-72 lg:w-80 shrink-0 rounded-xl overflow-hidden border-2 border-tarot-gold/30 shadow-2xl">
                 <img src={selectedCard.image} alt={selectedCard.name} className="w-full h-full object-cover" />
               </div>
-              <div className="flex-1 flex flex-col pt-2">
-                <DialogHeader className="text-left mb-6">
-                  <DialogTitle className="text-3xl font-bold text-tarot-gold">{selectedCard.name}</DialogTitle>
-                  <DialogDescription className="text-lg text-purple-300">{selectedCard.nameEn}</DialogDescription>
+              <div className="flex-1 flex flex-col pt-2 w-full">
+                <DialogHeader className="text-center md:text-left mb-6">
+                  <DialogTitle className="text-3xl md:text-4xl font-bold text-tarot-gold">{selectedCard.name}</DialogTitle>
+                  <DialogDescription className="text-lg md:text-xl text-purple-300 mt-1">{selectedCard.nameEn}</DialogDescription>
                 </DialogHeader>
                 
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-lg font-medium text-foreground mb-2 border-b border-border/50 pb-1 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500" /> 正位解析
+                <div className="space-y-6 text-left">
+                  <div className="bg-background/40 p-4 md:p-6 rounded-lg border border-border/50">
+                    <h4 className="text-lg md:text-xl font-medium text-foreground mb-3 pb-2 flex items-center gap-2 border-b border-border/50">
+                      <span className="w-2.5 h-2.5 rounded-full bg-green-500" /> 正位解析
                     </h4>
-                    <p className="text-muted-foreground leading-relaxed font-light">{selectedCard.upright}</p>
+                    <p className="text-muted-foreground leading-relaxed font-light text-base md:text-lg">{selectedCard.upright}</p>
                   </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-foreground mb-2 border-b border-border/50 pb-1 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-red-500" /> 逆位解析
+                  <div className="bg-background/40 p-4 md:p-6 rounded-lg border border-border/50">
+                    <h4 className="text-lg md:text-xl font-medium text-foreground mb-3 pb-2 flex items-center gap-2 border-b border-border/50">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500" /> 逆位解析
                     </h4>
-                    <p className="text-muted-foreground leading-relaxed font-light">{selectedCard.reversed}</p>
+                    <p className="text-muted-foreground leading-relaxed font-light text-base md:text-lg">{selectedCard.reversed}</p>
                   </div>
                 </div>
               </div>
