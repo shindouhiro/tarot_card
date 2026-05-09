@@ -70,7 +70,7 @@ export default function Result() {
           
           <motion.div
             className="w-full h-full relative preserve-3d transition-all duration-1000"
-            animate={{ rotateY: isRevealed ? (isReversed ? 180 + 180 : 180) : 0 }}
+            animate={{ rotateY: isRevealed ? 180 : 0 }}
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* Card Back (Front face before flip) */}
