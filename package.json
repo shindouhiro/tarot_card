@@ -1,0 +1,17 @@
+{
+  "name": "taluopai-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm -F web dev",
+    "build": "pnpm -F web build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@unocss/reset": "^66.6.8",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}
