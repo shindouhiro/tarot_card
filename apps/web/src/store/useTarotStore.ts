@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { majorArcana, TarotCard } from '../data/tarotData'
+import { fullTarotDeck, TarotCard } from '../data/tarotData'
 
 interface DrawnCard extends TarotCard {
   isReversed: boolean;
@@ -15,14 +15,14 @@ interface TarotState {
 }
 
 export const useTarotStore = create<TarotState>((set, get) => ({
-  deck: [...majorArcana],
+  deck: [...fullTarotDeck],
   drawnCard: null,
   isShuffling: false,
   
   shuffle: () => {
     set({ isShuffling: true });
     // Simple Fisher-Yates shuffle
-    const newDeck = [...majorArcana];
+    const newDeck = [...fullTarotDeck];
     for (let i = newDeck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [newDeck[i], newDeck[j]] = [newDeck[j], newDeck[i]];
@@ -40,7 +40,24 @@ export const useTarotStore = create<TarotState>((set, get) => ({
     set({ drawnCard: { ...card, isReversed } });
   },
 
+  shuffleAndDraw: () => {
+    set({ isShuffling: true, drawnCard: null })
+
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * fullTarotDeck.length)
+      const isReversed = Math.random() > 0.5
+      
+      set({
+        isShuffling: false,
+        drawnCard: {
+          ...fullTarotDeck[randomIndex],
+          isReversed
+        }
+      })
+    }, 2000)
+  },
+
   reset: () => {
-    set({ drawnCard: null, deck: [...majorArcana] });
+    set({ drawnCard: null, deck: [...fullTarotDeck] });
   }
 }));
