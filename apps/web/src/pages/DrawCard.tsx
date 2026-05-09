@@ -34,7 +34,6 @@ export default function DrawCard() {
         {deck.map((_, index) => {
           // Spread cards in an arc
           const angle = (index - deck.length / 2) * 5
-          const isCenter = index === Math.floor(deck.length / 2)
           
           return (
             <motion.div
