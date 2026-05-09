@@ -6,7 +6,7 @@ import Gallery from './pages/Gallery'
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen w-full bg-tarot-dark flex flex-col items-center justify-center relative overflow-hidden text-gray-100 font-sans">
         {/* Starry background effect */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-tarot-dark to-tarot-dark -z-10" />
