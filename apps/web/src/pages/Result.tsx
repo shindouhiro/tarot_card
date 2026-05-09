@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, RotateCw, Sparkles, Hand, Search } from 'lucide-react'
 import { useTarotStore } from '../store/useTarotStore'
+import { getCardDetail } from '@/data/tarotDetailData'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -171,38 +172,40 @@ export default function Result() {
       <Dialog open={showDetail} onOpenChange={setShowDetail}>
         <DialogContent className="max-w-[95vw] sm:max-w-[85vw] md:max-w-3xl lg:max-w-4xl bg-card/90 backdrop-blur-xl border-border text-card-foreground max-h-[90vh] overflow-y-auto">
           <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start p-2 md:p-4">
-            <div className="w-48 sm:w-56 md:w-72 lg:w-80 shrink-0 rounded-xl overflow-hidden border-2 border-tarot-gold/30 shadow-2xl">
-              <img 
-                src={image} 
-                alt={name} 
-                className="w-full h-full object-cover"
-                style={{ transform: isReversed ? 'rotate(180deg)' : 'none' }}
-              />
+            <div className="w-48 sm:w-56 md:w-64 shrink-0 rounded-xl overflow-hidden border-2 border-tarot-gold/30 shadow-2xl">
+              <img src={image} alt={name} className="w-full h-full object-cover" style={{ transform: isReversed ? 'rotate(180deg)' : 'none' }} />
             </div>
             <div className="flex-1 flex flex-col pt-2 w-full">
-              <DialogHeader className="text-center md:text-left mb-6">
+              <DialogHeader className="text-center md:text-left mb-4">
                 <DialogTitle className="text-3xl md:text-4xl font-bold text-tarot-gold">{name}</DialogTitle>
                 <DialogDescription className="text-lg md:text-xl text-purple-300 mt-1">{nameEn}</DialogDescription>
               </DialogHeader>
-
               <div className="inline-flex items-center w-fit px-4 py-1.5 rounded-full bg-purple-900/50 border border-purple-500/30 text-purple-200 mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
                 <span className="text-sm tracking-widest font-medium">当前：{positionText}</span>
               </div>
-              
-              <div className="space-y-6 text-left">
-                <div className="bg-background/40 p-4 md:p-6 rounded-lg border border-border/50">
-                  <h4 className="text-lg md:text-xl font-medium text-foreground mb-3 pb-2 flex items-center gap-2 border-b border-border/50">
-                    <span className="w-2.5 h-2.5 rounded-full bg-green-500" /> 正位解析
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed font-light text-base md:text-lg">{upright}</p>
-                </div>
-                <div className="bg-background/40 p-4 md:p-6 rounded-lg border border-border/50">
-                  <h4 className="text-lg md:text-xl font-medium text-foreground mb-3 pb-2 flex items-center gap-2 border-b border-border/50">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500" /> 逆位解析
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed font-light text-base md:text-lg">{reversed}</p>
-                </div>
-              </div>
+              {(() => {
+                const detail = getCardDetail(drawnCard.id)
+                const sections = isReversed ? detail?.reversedSections : detail?.uprightSections
+                const dotColor = isReversed ? 'bg-red-500' : 'bg-green-500'
+                return sections ? (
+                  <div className="space-y-4 text-left">
+                    {sections.map((s, i) => (
+                      <div key={i} className="bg-background/40 p-4 md:p-5 rounded-lg border border-border/50">
+                        <h4 className="text-base md:text-lg font-medium text-foreground mb-2 pb-2 flex items-center gap-2 border-b border-border/50">
+                          <span className={`w-2 h-2 rounded-full ${dotColor}`} /> {s.title}
+                        </h4>
+                        <p className="text-muted-foreground leading-relaxed font-light text-sm md:text-base">{s.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-4 text-left">
+                    <div className="bg-background/40 p-4 md:p-5 rounded-lg border border-border/50">
+                      <p className="text-muted-foreground leading-relaxed font-light text-sm md:text-base">{meaning}</p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
           </div>
         </DialogContent>
